@@ -1,0 +1,1349 @@
+title: Home Assistant
+resources:
+
+  - url: /local/card-tools.js?track=true
+    type: js
+  - url: /community_plugin/mini-media-player/mini-media-player.js
+    type: module
+  - url: /community_plugin/bar-card/bar-card.js
+    type: js
+  - url: /local/group-card.js?v=0.0.2
+    type: js
+  - url: /community_plugin/monster-card/monster-card.js
+    type: js
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
+    type: js
+  - url: /community_plugin/mini-graph-card/mini-graph-card.js
+    type: module
+  - url: /local/alarm_control_panel-card.js?v=3.0
+    type: js
+  - url: /community_plugin/lovelace-auto-entities/auto-entities.js
+    type: js
+  - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
+    type: module
+  - url: /community_plugin/lovelace-flower-card/flower-card.js
+    type: module
+  - url: /community_plugin/aftership-card/aftership-card.js
+    type: module
+  - url: /community_plugin/lovelace-auto-entities/auto-entities.js
+    type: js
+  - url: /community_plugin/lovelace-card-tools/card-tools.js
+    type: js
+  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
+    type: js
+    
+#  - type: css
+#    url: /local/styles.css?v=0.1
+    
+views:
+  - title: Home
+    background: var(--background-image)
+    #background: radial-gradient(MintCream, MintCream)
+    cards:
+
+
+          - type: custom:vertical-stack-in-card
+            title: Living Room 
+            cards:
+
+                    
+              - type: glance
+                title: Lights
+                entities:
+                    - entity: switch.couchlight
+                      tap_action: 
+                        action: toggle
+                      hold_action: more-info
+                    - entity: switch.tablelight
+                      tap_action: 
+                        action: toggle
+                      hold_action: more-info
+                    - entity: switch.wall_switch_left_158d0002eccf3f
+                      tap_action: 
+                        action: toggle
+                      hold_action: more-info
+                      name: Kitchen
+                      icon: mdi:lightbulb-on-outline
+                    - entity: switch.wall_switch_right_158d0002eccf3f
+                      tap_action: 
+                        action: toggle
+                      hold_action: more-info
+                      name: Hall
+                      icon: mdi:lightbulb-on-outline
+                    - entity: light.gateway_light_7811dcdef518
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                      name: 'Lamp'
+                      icon: mdi:lamp
+              - type: glance
+                title: Climate Control
+                entities:
+                    - entity: switch.livingroomfan
+                      name: Fan
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    - entity: input_boolean.fanautolr
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                      name: 'Auto'
+                    - entity: switch.livingroomairconditioner
+                      name: AC
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    - entity: input_boolean.acautolr
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                      name: 'Auto'
+              - type: thermostat
+                entity: climate.livingroomclimate
+                name: Thermostat 
+              - type: custom:swipe-card
+                card_width: '185px'
+                start_card: 3
+                parameters:
+                  effect: 'coverflow'
+                  centeredSlides: true
+                  slidesPerView: 2.3
+                  pagination:
+                    type: 'bullets'
+                cards:
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        line_color: black
+                        lower_bound: 0
+                        entities:
+                            - sensor.illumination_158d0001e0acf6
+                        color_thresholds:
+                            - value: 0
+                              color: "#565656"
+                            - value: 50
+                              color: "#7c7862"
+                            - value: 100
+                              color: "#938b5e"
+                            - value: 200
+                              color: "#9b904f"
+                            - value: 300
+                              color: "#c6b447"
+                            - value: 400
+                              color: "#ffe12d"
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        line_color: black
+                        lower_bound: 0
+                        entities:
+                            - sensor.illumination_7811dcdef518
+                        color_thresholds:
+                            - value: 0
+                              color: "#6b6a6a"
+                            - value: 200
+                              color: "#878575"
+                            - value: 400
+                              color: "#9b966f"
+                            - value: 600
+                              color: "#bcb262"
+                            - value: 800
+                              color: "#d6c74f"
+                            - value: 1000
+                              color: "#ffe93f"
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        lower_bound: 20
+                        line_color: black
+                        entities:
+                            - sensor.lrtemp_temperature
+                        color_thresholds:
+                            - value: 0.0
+                              color: "#1867a5"
+                            - value: 17.0
+                              color: "#21aaba"
+                            - value: 20.0
+                              color: "#339b8a"
+                            - value: 22.0
+                              color: "#26c17c"
+                            - value: 24.0
+                              color: "#68c661"
+                            - value: 26.0
+                              color: "#cded8b"
+                            - value: 28.0
+                              color: "#e8ed8b"
+                            - value: 30.0
+                              color: "#ef8410"
+                            - value: 32.0
+                              color: "#ef0f0f"
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        line_color: black
+                        lower_bound: 0
+                        upper_bound: 100
+                        entities:
+                            - sensor.lrtemp_humidity
+                        color_thresholds:
+                            - value: 30.0
+                              color: "#b8dddd"
+                            - value: 40.0
+                              color: "#afb6d1"
+                            - value: 60.0
+                              color: "#9da6cc"
+                            - value: 70.0
+                              color: "#6c7cc1"
+                            - value: 80.0
+                              color: "#6073c4"
+                            - value: 90.0
+                              color: "#4258b7"
+              - type: custom:mini-media-player
+                entity: media_player.living_room_speaker
+                artwork: cover
+                show_source: true
+                show_progress: true
+                show_shuffle: true
+              - type: custom:mini-media-player
+                entity: media_player.mibox3
+                artwork: cover
+                icon: mdi:television-classic
+                show_progress: true
+
+                
+
+                
+
+          - type: custom:vertical-stack-in-card
+            title: Master Bedroom
+            cards:
+              - type: glance
+                title: Lights
+                entities:
+                    - entity: switch.bedroomlight
+                      tap_action:
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    - entity: switch.bedroom_lamp
+                      icon: mdi:floor-lamp
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    #- entity: switch.bathroomlight
+                     # name: Bathroom
+                      #tap_action: 
+                      #  action: toggle
+                      #hold_action: 
+                      #  action: more-info
+              - type: glance
+                title: Climate Control
+                entities:
+                    - entity: switch.bedroomfan
+                      name: Fan
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    - entity: input_boolean.fanautobr
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                      name: 'Auto'
+                    - entity: switch.bedroomairconditioner
+                      name: AC
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    - entity: input_boolean.acautobr
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                      name: 'Auto'
+              - type: thermostat
+                entity: climate.bedroomclimate
+                name: Thermostat 
+              - type: custom:swipe-card
+                card_width: '185px'
+                start_card: 2
+                parameters:
+                  effect: 'coverflow'
+                  centeredSlides: true
+                  slidesPerView: 2.3
+                  pagination:
+                    type: 'bullets'
+                cards:
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        line_color: black
+                        lower_bound: 0
+                        entities:
+                            - sensor.illumination_158d0001e5cc4e
+                        color_thresholds:
+                            - value: 0
+                              color: "#565656"
+                            - value: 50
+                              color: "#7c7862"
+                            - value: 100
+                              color: "#938b5e"
+                            - value: 200
+                              color: "#9b904f"
+                            - value: 300
+                              color: "#c6b447"
+                            - value: 400
+                              color: "#ffe12d"
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        lower_bound: 20
+                        line_color: black
+                        entities:
+                            - sensor.brtemp_temperature
+                        color_thresholds:
+                            - value: 0.0
+                              color: "#1867a5"
+                            - value: 17.0
+                              color: "#21aaba"
+                            - value: 20.0
+                              color: "#339b8a"
+                            - value: 22.0
+                              color: "#26c17c"
+                            - value: 24.0
+                              color: "#68c661"
+                            - value: 26.0
+                              color: "#cded8b"
+                            - value: 28.0
+                              color: "#e8ed8b"
+                            - value: 30.0
+                              color: "#ef8410"
+                            - value: 32.0
+                              color: "#ef0f0f"
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        lower_bound: 0
+                        upper_bound: 100
+                        line_color: black
+                        entities:
+                            - sensor.brtemp_humidity
+                        color_thresholds:
+                            - value: 30.0
+                              color: "#b8dddd"
+                            - value: 40.0
+                              color: "#afb6d1"
+                            - value: 60.0
+                              color: "#9da6cc"
+                            - value: 70.0
+                              color: "#6c7cc1"
+                            - value: 80.0
+                              color: "#6073c4"
+                            - value: 90.0
+                              color: "#4258b7"
+              - type: custom:mini-media-player
+                entity: media_player.googlehomehub0666
+                icon: mdi:television
+                artwork: cover
+                show_source: true
+                show_progress: true
+                show_shuffle: true
+
+                
+
+          - type: custom:vertical-stack-in-card
+            title: Bathroom
+            cards:
+              - type: glance
+                entities:
+                    - entity: switch.bathroomlight
+                      name: Bathroom
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+                    - entity: binary_sensor.motion_sensor_158d0002e9f72d
+                      name: Presence
+              - type: custom:swipe-card
+                card_width: '300px'
+                start_card: 1
+                parameters:
+                  effect: 'coverflow'
+                  centeredSlides: true
+                  slidesPerView: 'auto'
+                  pagination:
+                    type: 'bullets'
+                cards:
+                      - type: custom:mini-graph-card
+                        hours_to_show: 6
+                        points_per_hour: 3
+                        lower_bound: 0
+                        entities:
+                            - sensor.illumination_158d0002e9f72d
+                        color_thresholds:
+                            - value: 0
+                              color: "#565656"
+                            - value: 50
+                              color: "#7c7862"
+                            - value: 100
+                              color: "#938b5e"
+                            - value: 200
+                              color: "#9b904f"
+                            - value: 300
+                              color: "#c6b447"
+                            - value: 400
+                              color: "#ffe12d"
+ 
+          - type: custom:vertical-stack-in-card
+            title: Guest Room
+            cards:
+              - type: glance
+                entities:
+                    - entity: switch.guestroomlight
+                      name: Bedroom
+                      icon: mdi:lightbulb-on-outline
+                      tap_action: 
+                        action: toggle
+                      hold_action: 
+                        action: more-info
+              - type: custom:mini-media-player
+                entity: media_player.bedroom_speaker
+                artwork: cover
+                show_source: true
+                show_progress: true
+                show_shuffle: true
+                
+          - type: custom:vertical-stack-in-card
+            title: Devices
+            cards:
+              - type: entities
+                show_header_toggle: false
+                entities:
+                    - entity: switch.tv
+                    - entity: switch.speakerslr
+                      name: Living Room Speakers
+                    - entity: switch.mibox
+                      name: MiBox
+                    - entity: input_select.cube_select
+              - type: custom:mini-media-player
+                entity: media_player.gpm_desktop_player
+                artwork: cover
+                show_source: true
+                show_progress: true
+                show_shuffle: true
+                icon: mdi:headphones
+              - type: glance
+                title: Plex 
+                entities:
+                  - entity: switch.wake_on_lan
+                    name: Server 
+                    icon: mdi:server-network
+                    tap_action: 
+                      action: toggle
+                  #- entity: automation.messagewhensensorvibrate
+                  #  tap_action: 
+                  #    action: toggle
+
+
+          - type: custom:vertical-stack-in-card
+            cards:
+            - type: picture-elements
+              title: Vacuum
+              image: '/local/vacuum2.png'
+              elements:
+                - type: icon
+                  icon: mdi:bell-ring
+                  tap_action: 
+                    action: call-service
+                    service: vacuum.locate
+                  entity: vacuum.xiaomi_vacuum_cleaner
+                  style:
+                   top: 90%
+                   left: 80%
+                   color: '#3090C7'
+                - type: icon
+                  icon: mdi:crosshairs
+                  tap_action: 
+                    action: call-service
+                    service: vacuum.clean_spot
+                  entity: vacuum.xiaomi_vacuum_cleaner
+                  style:
+                   top: 90%
+                   left: 65%
+                   color: '#3090C7'
+                - type: icon
+                  tap_action: 
+                    action: call-service
+                    service: vacuum.return_to_base
+                  icon: mdi:home
+                  entity: vacuum.xiaomi_vacuum_cleaner
+                  style:
+                   top: 90%
+                   left: 50%
+                   color: '#3090C7'
+                - type: icon
+                  icon: mdi:stop
+                  tap_action: 
+                    action: call-service
+                    service: vacuum.stop
+                  entity: vacuum.xiaomi_vacuum_cleaner
+                  style:
+                   top: 90%
+                   left: 35%
+                   color: '#3090C7'
+                - type: icon
+                  icon: mdi:play
+                  tap_action: 
+                    action: call-service
+                    service: vacuum.start
+                  entity: vacuum.xiaomi_vacuum_cleaner
+                  style:
+                   top: 90%
+                   left: 20%
+                   color: '#3090C7'
+                - type: state-label
+                  entity: sensor.vacuum_operation
+                  style:
+                   top: 10%
+                   left: 1%
+                   color: rgb(255, 255, 255)
+                   transform: translate(0%,-50%)
+                   pointer-events: none
+                   font-family: Trebuchet MS
+                   font-size: 90%
+                   font-weight: bold
+                   border-color: rgb(34, 154, 210)
+                   background-color: '#3090C7'
+                   border-radius: 6px
+                - type: state-label
+                  entity: sensor.vacuum_accessories
+                  style:
+                   top: 10%
+                   right: 1%
+                   color: rgb(255, 255, 255)
+                   transform: translate(0%,-50%)
+                   pointer-events: none
+                   font-family: Trebuchet MS
+                   font-size: 90%
+                   font-weight: bold
+                   border-color: rgb(34, 154, 210)
+                   background-color: '#3090C7'
+                   border-radius: 6px
+                - type: state-label
+                  tap_action: 
+                    action: more-info
+                  entity: vacuum.xiaomi_vacuum_cleaner
+                  style:
+                   top: 14%
+                   right: 39%
+                   color: rgb(255, 255, 255)
+                   transform: translate(0%,-50%)
+                   font-family: Trebuchet MS
+                   font-size: 150%
+                   font-weight: bold
+                   border-color: rgb(34, 154, 210)
+                   border-radius: 6px
+                   background-color: '#3090C7'
+                - type: state-label
+                  entity: sensor.vacuum_cleanmainbrush
+                  style:
+                    top: 35%
+                    right: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 76%
+                    font-weight: bold
+                    border-right-style: solid
+                    border-color: rgb(34, 154, 210)
+                - type: state-label
+                  entity: sensor.vacuum_cleansidebrush
+                  style:
+                    top: 45%
+                    right: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 76%
+                    font-weight: bold
+                    border-right-style: solid
+                    border-color: rgb(34, 154, 210)
+                - type: state-label
+                  entity: sensor.vacuum_cleanfilter
+                  style:
+                    top: 55%
+                    right: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 76%
+                    font-weight: bold
+                    border-right-style: solid
+                    border-color: rgb(34, 154, 210)
+                    opacity: 0.8
+                - type: state-label
+                  entity: sensor.vacuum_sensordirtyleft
+                  style:
+                    top: 65%
+                    right: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 76%
+                    font-weight: bold
+                    border-right-style: solid
+                    border-color: rgb(34, 154, 210)
+                - type: state-label
+                  entity: sensor.vacuum_status
+                  style:
+                    top: 40%
+                    left: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 80%
+                    font-weight: bold
+                    border-left-style: solid
+                    border-color: '#3090C7'
+                - type: state-label
+                  entity: sensor.vacuum_battery
+                  style:
+                    top: 50%
+                    left: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 80%
+                    font-weight: bold
+                    border-left-style: solid
+                    border-color: rgb(34, 154, 210)
+                - type: state-label
+                  entity: sensor.vacuum_fan_speed
+                  style:
+                    top: 60%
+                    left: 1%
+                    color: '#ffffff'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 80%
+                    font-weight: bold
+                    border-left-style: solid
+                    border-color: rgb(34, 154, 210)
+                - type: state-label
+                  entity: sensor.vacuum_cleaned_area
+                  prefix: "Area:"
+                  style:
+                    top: 80%
+                    left: 31%
+                    color: '#84a6ba'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 80%
+                    font-weight: bold
+                - type: state-label
+                  entity: sensor.vacuum_cleaning_time
+                  prefix: "Time:"
+                  suffix: " m"
+                  style:
+                    top: 80%
+                    left: 51%
+                    color: '#84a6ba'
+                    transform: translate(0%,-50%)
+                    pointer-events: none
+                    font-family: Trebuchet MS
+                    font-size: 80%
+                    font-weight: bold
+            - type: entities
+              entities:
+              - entity: input_select.vacuum_room
+            - type: glance
+              columns: 2
+              entities:
+              - entity: input_boolean.disable_dustbin_notification
+                name: Disable Notification
+                tap_action: 
+                  action: toggle
+              - entity: input_boolean.disable_daily_vacuum
+                name: Disable Daily Cleanup
+                tap_action: 
+                  action: toggle
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: glance
+                title: LG Washing Machine 
+                entities:
+                  - entity: binary_sensor.washing_machine
+                    name: Power
+                    icon: mdi:washing-machine
+                  - entity: sensor.washing_machine_switch_watts
+                    name: Power
+                    icon: mdi:counter
+                  - entity: sensor.washing_machine_switch_volts
+                    name: Voltage
+                    icon: mdi:gauge
+                  - entity: sensor.washing_machine_switch_amps
+                    name: Amperage
+                    icon: mdi:gauge
+              - type: glance
+                title: Consumption
+                entities:
+                  - entity: sensor.washerdaily
+                    name: Today
+                    icon: mdi:counter
+                  - entity: sensor.washermonthly
+                    name: This month
+                    icon: mdi:counter
+
+  - title: Daily
+    background: var(--background-image)
+    #background: radial-gradient(MintCream, MintCream)
+    cards:
+    
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: entities
+                entities:
+                  - type: Cast
+                    view: Home
+                    name: Home View
+                    hide_if_unavailable: True
+
+          - type: custom:vertical-stack-in-card
+            cards:
+            
+                  - type: entities
+                    title: Scenes
+                    show_header_toggle: false
+                    entities: 
+                      - entity: script.turnoffeverything
+                        icon: mdi:home-alert
+                        name: Leaving Home
+                      - entity: script.arrivinghome
+                        icon: mdi:home-account
+                        name: Arriving Home
+                      - entity: script.bedtime
+                        icon: mdi:sleep
+                        name: Bedtime
+
+                        
+                  - type: entities
+                    title: Master Control
+                    show_header_toggle: false
+                    entities:
+                      - type: custom:auto-entities
+                        card:
+                          type: custom:fold-entity-row
+                          head: group.alllights
+                          icon: mdi:lightbulb
+                        filter:
+                          include:
+                              - entity_id: switch.couchlight
+                                state: "on"
+                              - entity_id: switch.tablelight
+                                state: "on"
+                              - entity_id: switch.wall_switch_left_158d0002eccf3f
+                                state: "on"
+                              - entity_id: switch.wall_switch_right_158d0002eccf3f
+                                state: "on"
+                              - entity_id: switch.bedroomlight
+                                state: "on"
+                              - entity_id: switch.bathroomlight
+                                state: "on"
+                              #- entity_id: switch.guestroomlight #SWITCH IS BROKEN, ASSUMED STATE DOESNT WORK
+                              #  state: "on"
+                              - entity_id: switch.bedroom_lamp
+                                state: "on"
+                              - entity_id: light.gateway_light_7811dcdef518
+                                state: "on"
+                      - type: custom:auto-entities
+                        card:
+                          type: custom:fold-entity-row
+                          head: group.allac
+                          icon: mdi:air-conditioner
+                        filter:
+                          include:
+                              - entity_id: switch.livingroomairconditioner
+                                state: "on"
+                              - entity_id: switch.bedroomairconditioner
+                                state: "on"
+                      - type: custom:auto-entities
+                        card:
+                          type: custom:fold-entity-row
+                          head: group.allfans
+                          icon: mdi:air-conditioner
+                        filter:
+                          include:
+                              - entity_id: switch.livingroomfan
+                                state: "on"
+                              - entity_id: switch.bedroomfan
+                                state: "on"
+
+                  - type: custom:auto-entities
+                    card:
+                      type: custom:fold-entity-row
+                      head:
+                        type: section
+                        label: Other devices that are turned on
+                    filter:
+                      include:
+                        - entity_id: media_player.bedroom_speaker
+                        - entity_id: media_player.googlehomehub0666
+                        - entity_id: media_player.gpm_desktop_player
+                        - entity_id: media_player.living_room_speaker
+                        - entity_id: media_player.mibox3
+                        - entity_id: switch.tv
+                          state: "on"
+                        - entity_id: switch.speakerslr
+                          state: "on"
+                        - entity_id: switch.wake_on_lan
+                          state: "on"
+                        - entity_id: vacuum.xiaomi_vacuum_cleaner
+                        - entity_id: binary_sensor.washing_machine
+                      exclude:
+                      - state: "off"
+                      - state: "unavailable"
+                      - state: "docked"
+                  
+
+          - type: vertical-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: weather-forecast
+                    entity: weather.dark_sky  
+                  - type: iframe
+                    url: https://embed.windy.com/embed2.html?lat=2.905&lon=101.679&zoom=11&level=surface&overlay=rain&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=3.148&detailLon=101.639&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1
+    
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:flower-card
+                        entity: plant.lipstick
+                        species: "aeschynanthus pulche"
+                      - type: entities
+                        entities:
+                            - entity: binary_sensor.water_leak_sensor_158d0002836f88
+                              name: Watering valve
+                          
+
+
+                
+
+
+          - type: 'custom:aftership-card'
+            entity: sensor.aftership
+            title: Package Tracking
+
+          - type: shopping-list
+            title: Shopping List
+               
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: entities
+                title: Services
+                show_header_toggle: false
+                entities:
+                  - type: weblink
+                    name: HomeAssistant
+                    url: !secret URL
+                    icon: mdi:home-assistant
+                  - type: weblink
+                    name: Nextcloud
+                    url: !secret URL
+                    icon: mdi:cloud
+                  - type: weblink
+                    name: Unifi SDN
+                    url: !secret URL
+                    icon: mdi:router-wireless
+                  - type: weblink
+                    name: Hotspot Manager
+                    url: !secret URL
+                    icon: mdi:access-point
+                  - type: weblink
+                    name: PLEX
+                    url: !secret URL
+                    icon: mdi:plex
+                  - type: weblink
+                    name: Aftership
+                    url: !secret URL
+                    icon: mdi:truck
+                  - type: weblink
+                    name: Transmission 
+                    url: !secret URL
+                    icon: mdi:download-network
+                  - type: weblink
+                    name: HomeAssistant Cast
+                    url: https://cast.home-assistant.io/
+                    icon: mdi:cast 
+              - type: entities
+                title: Consoles
+                show_header_toggle: false
+                entities:
+                  - type: weblink
+                    name: Cloudflare
+                    url: https://dash.cloudflare.com/login
+                    icon: mdi:cloud-tags
+                  - type: weblink
+                    name: Google Cloud Console 
+                    url: https://console.cloud.google.com/
+                    icon: mdi:google
+                  - type: weblink
+                    name: Google Firebase Console 
+                    url: https://console.firebase.google.com
+                    icon: mdi:firebase
+                  - type: weblink
+                    name: Google Actions Console 
+                    url: https://console.actions.google.com
+                    icon: mdi:google-assistant
+              - type: entities
+                title: Internal Consoles
+                show_header_toggle: false
+                entities:
+                  - type: weblink
+                    name: Pi-Hole
+                    url: !secret URL
+                    icon: mdi:server-network
+                  - type: weblink
+                    name: OpenMediaVault
+                    url: !secret URL
+                    icon: mdi:nas
+                  - type: weblink
+                    name: NGINX Proxy
+                    url: !secret URL
+                    icon: mdi:arrow-decision
+                
+                
+  - title: Security
+    background: var(--background-image)
+    #background: radial-gradient(MintCream, MintCream)
+    cards:
+
+
+
+          - type: custom:vertical-stack-in-card
+            title: Security
+            cards:
+              - type: entities
+                title: Alarm
+                show_header_toggle: false
+                entities:
+                  - entity: script.armalarm
+                    icon: mdi:shield-home
+                    name: Arm Alarm
+                  - entity: input_boolean.ibautoarm
+                    name: Auto-Arm Alarm
+                    icon: mdi:account-search
+              - type: conditional
+                conditions:
+                  - entity: alarm_control_panel.home_alarm
+                    state_not: "disarmed"
+                card:
+                    type: custom:alarm_control_panel-card
+                    entity: alarm_control_panel.home_alarm
+                    show_keypad: false
+                    title: Alarm Panel
+                    states:
+                     - arm_away
+                    labels:
+                      ui.card.alarm_control_panel.code: Insert alarm code
+                      ui.card.alarm_control_panel.arm_away: Arm Alarm
+                      ui.card.alarm_control_panel.disarmed: Disarm Alarm
+              - type: conditional
+                conditions:
+                  - entity: alarm_control_panel.home_alarm
+                    state: "disarmed"
+                card:
+                    type: entities
+                    title: Camera Control
+                    show_header_toggle: false
+                    entities:
+                      - entity: switch.sonoff_100024dac0
+                        name: Camera Plug
+
+
+
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: glance
+                columns: 2
+                title: Presence Detection
+                entities:
+                  - entity: group.glen
+                    icon: mdi:radar
+                    
+              - type: entities
+                title: Phone
+                show_header_toggle: false
+                entities:
+
+                  - entity: sensor.mi9t_battery_sensor
+                    name: Battery
+                  - entity: sensor.mi9t_wifi_sensor
+                    name: WiFi State
+                  - entity: sensor.google_geocode
+                    name: Location
+                  - entity: sensor.mi9t_availability_sensor
+                    name: Last heartbeat
+              - type: map
+                aspect_ratio: 16:9
+                default_zoom: 16
+                entities:
+                  - device_tracker.keys
+                  - device_tracker.wallet
+                  - device_tracker.badge
+                  - device_tracker.mi9t
+                  - zone.home
+                  - zone.work
+
+
+          - type: vertical-stack
+            title: Sensors
+            cards:
+                          
+                          
+              - type: custom:vertical-stack-in-card
+                title: Door sensors
+                cards:
+                  - type: glance
+                    entities:
+                        - entity: binary_sensor.door_window_sensor_158d00022d9be7
+                          name: Main Door
+                        - entity: binary_sensor.door_window_sensor_158d000227875c
+                          name: Balcony Door
+                          
+
+                              
+              - type: custom:vertical-stack-in-card
+                title: Motion sensors
+                cards:
+                  - type: glance
+                    entities:
+                        - entity: binary_sensor.motion_sensor_158d0001e0acf6
+                          name: Living Room
+                        - entity: binary_sensor.motion_sensor_158d0001e5cc4e
+                          name: Bedroom
+                        - entity: binary_sensor.motion_sensor_158d00020e8fdf
+                          name: Kitchen
+                        - entity: binary_sensor.motion_sensor_158d0002e9f72d
+                          name: Bathroom
+
+              - type: custom:vertical-stack-in-card
+                title: Bed Sensors
+                cards:
+                  - type: glance
+                    entities:
+                        - entity: sensor.bed_activity_158d0002a2333f
+                          name: Bedroom
+                          icon: mdi:hotel
+
+
+
+                    
+
+  - title: Systems
+    background: var(--background-image)
+    #background: radial-gradient(MintCream, MintCream)
+    cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+
+              - type: entities
+                title: Authentication
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.last_successful_authentication
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: entities
+                title: Security Gateway
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.unifi_gateway_alerts
+                    icon: mdi:alert
+                    name: Alerts
+                  - entity: sensor.unifi_gateway_firmware_upgradable
+                    name: Upgrades available
+
+              - type: glance
+                title: Status
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.unifi_gateway_wan
+                    name: WAN
+                  - entity: sensor.unifi_gateway_www
+                    name: WWW
+                  - entity: sensor.unifi_gateway_lan
+                    name: LAN
+                  - entity: sensor.unifi_gateway_vpn
+                    name: VPN
+                  - entity: sensor.unifi_gateway_wlan
+                    name: WLAN
+
+              - type: glance
+                title: Services
+                show_header_toggle: false
+                entities:
+                  - entity: binary_sensor.transmission
+                    name: Transmission
+                  - entity: binary_sensor.cloud_glenpi
+                    name: Nextcloud
+                  - entity: binary_sensor.home_glenpi
+                    name: HomeAssistant
+                  - entity: binary_sensor.openmediavault
+                    name: "OMV/Pihole/NC"
+                  - entity: binary_sensor.plex
+                    name: PLEX
+                  - entity: binary_sensor.unifi
+                    name: Unifi Controller
+                  
+
+                  
+                  
+          - type: custom:vertical-stack-in-card
+            title: Transmission
+            cards:
+              - type: entities
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.omv_tranmission_status
+                    name: Status
+                    icon: mdi:server-network
+                  - entity: switch.omv_tranmission
+                    name: Turtle Mode
+                    icon: mdi:wifi-strength-2-alert
+              - type: glance
+                entities:
+                    - entity: sensor.omv_tranmission_total_torrents
+                      name: Total 
+                      icon: mdi:format-list-checkbox
+                    - entity: sensor.omv_tranmission_active_torrents
+                      name: Active 
+                      icon: mdi:playlist-play
+                    - entity: sensor.omv_tranmission_completed_torrents
+                      name: Completed 
+                      icon: mdi:playlist-check
+                  
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:monster-card
+                card:
+                    type: glance
+                    columns: 6
+                    title: Network devices
+                filter:
+                    include:
+                      - domain: device_tracker
+                        attributes:
+                          source_type: "router"
+                    exclude:
+                      - entity_id: "group.*"
+                      - entity_id: "person.*"
+                      - state: not_home
+                      
+              - type: custom:monster-card
+                card:
+                    type: glance
+                    title: Bluetooth-BLE Devices
+                    columns: 6
+                filter:
+                    include:
+                      - domain: device_tracker
+                        attributes:
+                          source_type: "bluetooth"
+                    exclude:
+                      - state: not_home
+              - type: custom:monster-card
+                card:
+                    type: glance
+                    title: GPS Trackers
+                filter:
+                    include:
+                      - domain: device_tracker
+                        attributes:
+                          source_type: gps
+
+
+                      
+          - type: custom:vertical-stack-in-card
+            title: Connectivity
+            cards:
+              - type: custom:mini-graph-card
+                name: Bandwidth Monitor
+                points_per_hour: 12
+                hours_to_show: 1
+                lower_bound: 0
+                icon: mdi:speedometer
+                entities: 
+                    - entity: sensor.internet_in_mbps
+                      name: Download
+                      color: blue
+                    - entity: sensor.internet_out_mbps
+                      name: Upload
+                      color: green
+              - type: custom:mini-graph-card
+                name: Network traffic
+                hours_to_show: 1
+                points_per_hour: 18
+                lower_bound: 0
+                entities:
+                    - entity: sensor.unifi_gateway_3_kbyte_sec_sent
+                      name: Kb/s sent
+                    - entity: sensor.unifi_gateway_3_kbyte_sec_received
+                      name: Kb/s received
+                      
+          - type: custom:vertical-stack-in-card
+            title: DNS-AdBlocker
+            cards:
+              - type: custom:vertical-stack-in-card
+                title: 'PiHole'
+                cards:
+                  - type: custom:mini-graph-card
+                    hours_to_show: 24
+                    lower_bound: 0
+                    points_per_hour: 1
+                    entities: 
+                        - entity: sensor.pi_hole_ads_blocked_today
+                  - type: custom:mini-graph-card
+                    hours_to_show: 24
+                    points_per_hour: 3
+                    lower_bound: 0
+                    entities: 
+                        - entity: sensor.pi_hole_dns_queries_today
+                  - type: glance
+                    title: Stats
+                    columns: 4
+                    entities:
+                        - entity: sensor.pi_hole_ads_percentage_blocked_today
+                          name: Percentage blocked today
+                        - entity: sensor.pi_hole_dns_queries_today
+                          name: Queries today
+                        - entity: sensor.pi_hole_seen_clients
+                          name: Seen clients
+                        - entity: sensor.pi_hole_dns_unique_clients
+                          name: Unique clients
+                        - entity: sensor.pi_hole_domains_blocked
+                          name: Domains blocked
+                        - entity: sensor.pi_hole_dns_unique_domains
+                          name: Queries (unique)
+                        - entity: sensor.pi_hole_dns_queries_forwarded
+                          name: Queries forwarded
+                        - entity: sensor.pi_hole_dns_queries_cached
+                          name: Queries cached
+                          
+                  - type: custom:mini-graph-card
+                    name: Network packets
+                    hours_to_show: 1
+                    points_per_hour: 18
+                    lower_bound: 0
+                    entities:
+                        - entity: sensor.unifi_gateway_3_packets_sec_sent
+                          name: Packets/s sent
+                        - entity: sensor.unifi_gateway_3_packets_sec_received
+                          name: Packets/s received
+
+              - type: custom:vertical-stack-in-card
+                title: Hassio Host
+                cards:
+                  - type: custom:mini-graph-card
+                    name: CPU Temperature
+                    hours_to_show: 6
+                    points_per_hour: 6
+                    lower_bound: 30
+                    upper_bound: 100
+                    entities: 
+                        - entity: sensor.cpu_temperature
+                          name: CPU Temperature 
+                    color_thresholds:
+                    - value: 0.0
+                      color: "#1c7c1e"
+                    - value: 55.0
+                      color: "#ff9400"
+                    - value: 60.0
+                      color: "#f70000"
+                  - type: custom:mini-graph-card
+                    name: CPU Usage
+                    hours_to_show: 6
+                    points_per_hour: 6
+                    lower_bound: 0
+                    upper_bound: 100
+                    entities: 
+                        - entity: sensor.processor_use
+                          name: CPU Use
+                    color_thresholds:
+                    - value: 0.0
+                      color: "#1c7c1e"
+                    - value: 60.0
+                      color: "#ff9400"
+                    - value: 80.0
+                      color: "#f70000"
+                  - type: custom:mini-graph-card
+                    name: RAM
+                    hours_to_show: 6
+                    points_per_hour: 6
+                    lower_bound: 0
+                    upper_bound: 100
+                    entities: 
+                        - entity: sensor.memory_use_percent
+                          name: RAM
+                    color_thresholds:
+                    - value: 0.0
+                      color: "#1c7c1e"
+                    - value: 70.0
+                      color: "#ff9400"
+                    - value: 80.0
+                      color: "#f70000"
+                  - type: glance
+                    columns: 4
+                    entities:
+                        - entity: sensor.disk_use_percent_home
+                        - entity: sensor.ipv4_address_eth0
+                        - entity: sensor.myip
+                          name: Public IP
+                          icon: mdi:ip-network
+                        - entity: sensor.snapshot_backup
+
+
+ 
+          - type: custom:vertical-stack-in-card
+            cards:
+    
+                  - type: entities
+                    title: HACS
+                    show_header_toggle: false
+                    entities:
+                      - entity: sensor.hacs
+                        name: Custom Components
+
+          
+
+  - title: Weather
+    background: var(--background-image)
+    panel: true
+    #background: radial-gradient(MintCream, MintCream)
+    cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+
+              - type: iframe
+                url: https://embed.windy.com/embed2.html?lat=2.905&lon=101.679&zoom=11&level=surface&overlay=rain&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=3.148&detailLon=101.639&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1
